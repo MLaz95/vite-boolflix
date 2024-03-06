@@ -20,7 +20,8 @@
         <div class="text-center py-3">
             <h2>{{ movieItem.title }}</h2>
             <h5>({{ movieItem.original_title }})</h5>
-            <div>{{ movieItem.original_language }}</div>
+            <img :src="`https://flagcdn.com/${movieItem.original_language == 'en' ? 'us' : movieItem.original_language}.svg`" alt="" class="my_flag">
+
             <div>{{ movieItem.vote_average }}</div>
         </div>
         <!-- <img :src="`${store.posterBaseUrl}${movieItem.poster_path}`" v-if="movieItem.poster_path != null" alt="" class="img-fluid h-100 object-fit-cover">
@@ -31,5 +32,9 @@
 <style lang="scss">
     .my_card{
         width: calc(100% / 5);
+
+        .my_flag{
+            width: 25px;
+        }
     }
 </style>

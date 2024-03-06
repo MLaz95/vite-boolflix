@@ -5,4 +5,5 @@ export const store = reactive({
     searchResults: '',
     config: '',
     posterBaseUrl: '',
+    flagIcons: '',
 });

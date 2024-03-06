@@ -34,6 +34,13 @@
         console.log(this.store)
       }).catch(err => {
         console.log(err)
+      }),
+
+      axios.get(`https://flagcdn.com/en/codes.json`).then(res => {
+        this.store.flagIcons = res.data
+        console.log(this.store)
+      }).catch(err => {
+        console.log(err)
       })
     }
   }
