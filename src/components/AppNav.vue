@@ -1,6 +1,13 @@
 <script>
+    import {store} from '../store.js';
     export default{
         name: 'AppNav',
+
+        data(){
+            return{
+                store,
+            }
+        }
     }
 </script>
 
@@ -11,8 +18,8 @@
         </h1>
 
         <div class="d-flex gap-3">
-            <input type="search">
-            <button class="btn btn-outline-light">Seach</button>
+            <input type="search" v-model="store.search">
+            <button class="btn btn-outline-light" @click="$emit('search')">Search</button>
         </div>
             
     </nav>
