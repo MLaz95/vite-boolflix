@@ -6,6 +6,13 @@
         data(){
             return{
                 store,
+                commonLanguages: {
+                    'en': 'us',
+                    'ja': 'jp',
+                    'hi': 'in',
+                    'zh': 'cn',
+                    'ko': 'kr',
+                },
             }
         },
 
@@ -20,7 +27,12 @@
         <div class="text-center py-3">
             <h2>{{ movieItem.title }}</h2>
             <h5>({{ movieItem.original_title }})</h5>
-            <img :src="`https://flagcdn.com/${movieItem.original_language == 'en' ? 'us' : movieItem.original_language}.svg`" alt="" class="my_flag">
+            <!-- checks if language code matches country code -->
+            <img v-if="store.flagIcons.hasOwnProperty(movieItem.original_language)" :src="`https://flagcdn.com/${movieItem.original_language}.svg`" class="my_flag">
+            <!-- if not it checks if language code matches a list of common languages in movies -->
+            <img v-else-if="commonLanguages.hasOwnProperty(movieItem.original_language)" :src="`https://flagcdn.com/${this.commonLanguages[movieItem.original_language]}.svg`" class="my_flag">
+            <!-- if not it just prints the language tag -->
+            <div v-else class="my_flag">{{ movieItem.original_language }}</div>
 
             <div>{{ movieItem.vote_average }}</div>
         </div>
@@ -35,6 +47,8 @@
 
         .my_flag{
             width: 25px;
+            height: 25px;
+            object-fit: contain;
         }
     }
 </style>
