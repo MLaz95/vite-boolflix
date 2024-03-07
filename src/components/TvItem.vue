@@ -23,7 +23,9 @@
             <!-- tvObject in tmdb has a country of origin section!
             there is no need to compare the language code with the country ISO code like in the movie section -->
             <img :src="`https://flagcdn.com/${tvObject.origin_country[0].toLowerCase()}.svg`" :alt="tvObject.origin_country[0]" class="my_flag">
-            <div>{{ tvObject.vote_average }}</div>
+            <div>
+                <i class="fa-solid fa-star" v-for="star in Math.round(tvObject.vote_average / 2)"></i>
+            </div>
         </div>
         <!-- <img :src="`${store.posterBaseUrl}${tvObject.poster_path}`" v-if="tvObject.poster_path != null" alt="" class="img-fluid h-100 object-fit-cover">
         <h2 v-else class="text-center py-5">{{ tvObject.title }}</h2> -->
