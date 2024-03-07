@@ -40,7 +40,8 @@
 
 <style lang="scss">
 .my_card{
-    width: calc(100% / 5);
+    width: calc(100% / 5 - 0.5rem * 4 / 5);
+    min-height: 300px;
     transition: transform 0.3s;
 
     .card_back{
@@ -82,6 +83,22 @@
         text-align: start;
         font-size: 0.9rem;
         overflow-y: auto;
+        
+        /* width */
+        &::-webkit-scrollbar {
+        width: 5px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+        background-color: transparent;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+        background-color: #343a40;
+        border-radius: 10px;
+        }
     }
 
     &:hover{
@@ -98,6 +115,22 @@
             opacity: 1;
             visibility: visible;
         }
+    }
+
+    
+    
+}
+
+// media query
+@media screen and (max-width: 1200px) {
+    .my_card{
+        width: calc(100% / 4 - 0.5rem * 3 / 4);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .my_card{
+        width: calc(100% / 2 - 0.5rem * 1 / 2);
     }
 }
 </style>
