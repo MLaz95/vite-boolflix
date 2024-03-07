@@ -1,6 +1,7 @@
 <script>
     import {store} from '../store.js';
-    import CardItem from './CardItem.vue';
+    import MovieItem from './MovieItem.vue';
+    import TvItem from './TvItem.vue';
     export default{
         name: 'AppMain',
 
@@ -11,23 +12,37 @@
         },
 
         components:{
-            CardItem,
+            MovieItem,
+            TvItem
         }
     }
 </script>
 
 <template>
-    <div class="container">
+    <div class="my_container">
+        <h2>Movies</h2>
         <div class="d-flex flex-wrap align-items-stretch">
-            <CardItem
-                v-for="currentResult in store.searchResults.results"
-                :movieItem="currentResult"
-            ></CardItem>
+            <MovieItem
+                v-for="currentResult in store.movieResults.results"
+                :movieObject="currentResult"
+            ></MovieItem>
+        </div>
+        <h2>TV</h2>
+        <div class="d-flex flex-wrap align-items-stretch">
+            <TvItem
+            v-for="currentResult in store.tvResults.results"
+                :tvObject="currentResult"
+            ></TvItem>
         </div>
     </div>
 </template>
 
 <style lang="scss">
+
+    .my_container{
+        width: 80%;
+        margin: 0 auto;
+    }
 
     .my_card{
         // background-color: pink;
