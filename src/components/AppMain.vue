@@ -20,14 +20,15 @@
 
 <template>
     <div class="my_container">
-        <h2>Movies</h2>
+        <h2 v-if="store.movieResults.results != ''" class="pt-5">Movies</h2>
+        <h1 v-else class="d-2 p-5">Search for something to watch</h1>
         <div class="d-flex flex-wrap align-items-stretch">
             <MovieItem
                 v-for="currentResult in store.movieResults.results"
                 :movieObject="currentResult"
             ></MovieItem>
         </div>
-        <h2>TV</h2>
+        <h2 v-if="store.movieResults.results != ''" class="pt-5">TV</h2>
         <div class="d-flex flex-wrap align-items-stretch">
             <TvItem
             v-for="currentResult in store.tvResults.results"
@@ -42,10 +43,5 @@
     .my_container{
         width: 80%;
         margin: 0 auto;
-    }
-
-    .my_card{
-        // background-color: pink;
-        border: 1px dashed red;
     }
 </style>

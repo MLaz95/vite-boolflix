@@ -1,0 +1,62 @@
+// styles for both movie and tv cards
+.my_card{
+    width: calc(100% / 5);
+    transition: transform 0.3s;
+
+    .card_back{
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;      
+        background-color: rgba($color: #000000, $alpha: 0.8);
+
+        // properties that change on hover
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .card_info{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        gap: 2px;
+
+        padding: 1rem;
+        text-align: center;
+    }
+    
+    .my_flag{
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+
+    .overview{
+        text-align: start;
+        font-size: 0.9rem;
+        overflow-y: auto;
+    }
+
+    &:hover{
+        transform: scale(1.5);
+        
+        .card_back{
+            animation: surface 1s ease forwards;
+        }
+    }
+
+    @keyframes surface{
+        to{
+            height: 100%;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
