@@ -1,7 +1,6 @@
 <script>
     import {store} from '../store.js';
-    import MovieItem from './MovieItem.vue';
-    import TvItem from './TvItem.vue';
+    import AppCard from './AppCard.vue';
     export default{
         name: 'AppMain',
 
@@ -12,8 +11,7 @@
         },
 
         components:{
-            MovieItem,
-            TvItem
+            AppCard,
         }
     }
 </script>
@@ -22,17 +20,17 @@
     <div class="my_container">
         <h2 v-if="store.movieResults != '' && store.movieResults.results != ''" class="pt-5">Movies</h2>
         <div class="d-flex flex-wrap align-items-stretch">
-            <MovieItem
+            <AppCard
                 v-for="currentResult in store.movieResults.results"
-                :movieObject="currentResult"
-            ></MovieItem>
+                :item="currentResult"
+            ></AppCard>
         </div>
         <h2 v-if="store.tvResults.results != '' && store.movieResults != ''" class="pt-5">TV</h2>
         <div class="d-flex flex-wrap align-items-stretch">
-            <TvItem
+            <AppCard
             v-for="currentResult in store.tvResults.results"
-                :tvObject="currentResult"
-            ></TvItem>
+                :item="currentResult"
+            ></AppCard>
         </div>
     </div>
 </template>
