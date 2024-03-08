@@ -1,4 +1,5 @@
 <script>
+    import axios from 'axios';
     import {store} from '../store.js';
     export default{
         name: 'AppCard',
@@ -6,6 +7,8 @@
         data(){
             return{
                 store,
+                castInfo: '',
+                isCastWindowActive: false,
             }
         },
 
@@ -23,8 +26,24 @@
                 } else {
                     return store.tvGenres.find(({id}) => id == genre_id).name
                 }
-            }
-        }
+            },
+
+            showCast(item){
+                if(this.isCastWindowActive == false){
+                   if(item.title){
+                        axios.get(`https://api.themoviedb.org/3/movie/${item.id}/credits?api_key=e99307154c6dfb0b4750f6603256716d`).then(res => {
+                        
+                            this.castInfo = res.data.cast.slice(0, 5);
+                            console.log(this.castInfo)
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                    }
+                }
+
+                this.isCastWindowActive = !this.isCastWindowActive
+            },
+        },
     }
 </script>
 
@@ -49,6 +68,15 @@
                     <!-- creates a tag for each genre associated with the movie||tv item -->
                     <li v-for="genre_id in item.genre_ids" class="badge text-bg-secondary"><small>{{ findGenre(genre_id, item) }}</small></li>
                 </ul>
+                <button @click="showCast(item)" class="btn btn-sm btn-outline-light" data-bs-toggle="collapse" data-bs-target="#cast-info">cast</button>
+                <div id="cast-info" class="collapse collapse-horizontal">
+                    <ul class="list-group list-group-flush text-start">
+                        <li class="list-group-item list-group-item-secondary" v-for="actor in castInfo">
+                            <div class="test">{{actor.name}}</div>
+                            <small class="ps-2 text-nowrap test">as {{ actor.character }}</small>
+                        </li>
+                    </ul>
+                </div>
                 <p class="overview">{{ item.overview }}</p>
             </div>
         </div>
@@ -73,6 +101,16 @@
         height: 0;
         opacity: 0;
         visibility: hidden;
+
+        #cast-info{
+            position: absolute;
+            top: 0;
+            left: calc(100% - 1px);
+
+            ul{
+                min-width: 150px;
+            }
+        }
     }
 
     .card_info{
@@ -133,10 +171,7 @@
             opacity: 1;
             visibility: visible;
         }
-    }
-
-    
-    
+    }    
 }
 
 // media query
