@@ -56,7 +56,7 @@
 </script>
 
 <template>
-    <div class="my_card">
+    <div class="my_card shadow">
         <img :src="`${store.posterBaseUrl}${item.poster_path}`" v-if="item.poster_path != null" alt="" class="img-fluid h-100 object-fit-cover my_poster">
         <h2 v-else class="text-center py-5 bg-black w-100 h-100 p-3">{{ item.title ? item.title : item.name }}</h2>
         <div class="card_back">

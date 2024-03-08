@@ -41,13 +41,13 @@
 </script>
 
 <template>
-    <div class="my_container">
+    <div class="my_container pb-5">
         <!-- MOVIES -->
         <!-- only shows if user has made a search -->
         <div v-if="store.movieResults != '' && store.movieResults.results != ''" class="pt-5">
             <h2>Movies</h2>
             <!-- genre filters -->
-            <ul class="d-flex gap-1">
+            <ul class="d-flex gap-1 p-0 flex-wrap">
                 <li @click="setFilter('', 'movie')" class="genre_btn badge text-bg-secondary fs-6">All</li>
                 <!-- it only shows genres that are present among the results -->
                 <li 
@@ -57,7 +57,7 @@
                 >{{ findGenre(genre_id, store.movieResults.results[0]) }}</li>
             </ul>
         </div>
-        <div class="d-flex flex-wrap align-items-stretch gap-2 shadow">
+        <div class="d-flex flex-wrap align-items-stretch gap-2">
             <!-- makes a card for each found movie -->
             <!-- v-show hides results depending on genre filter -->
             <AppCard
@@ -72,7 +72,7 @@
         <div v-if="store.tvResults != '' && store.tvResults.results != ''" class="pt-5">
             <h2>TV</h2>
             <!-- genre filters -->
-            <ul>
+            <ul class="d-flex gap-2 p-0 flex-wrap">
                 <li @click="setFilter('', 'tv')" class="genre_btn badge text-bg-secondary fs-6">All</li>
                 <!-- it only shows genres that are present among the results -->
                 <li 
@@ -82,7 +82,7 @@
                 >{{ findGenre(genre_id, store.tvResults.results[0]) }}</li>
             </ul>
         </div>
-        <div class="d-flex flex-wrap align-items-stretch gap-2 shadow">
+        <div class="d-flex flex-wrap align-items-stretch gap-2">
             <AppCard
             v-for="currentResult in store.tvResults.results"
                 :item="currentResult"
@@ -100,7 +100,9 @@
 
     .genre_btn{
         cursor: pointer;
+
+        &:hover{
+            box-shadow: 0 0 10px white;
+        }
     }
-
-
 </style>
