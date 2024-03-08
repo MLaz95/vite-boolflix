@@ -35,6 +35,14 @@
                         
                             this.castInfo = res.data.cast.slice(0, 5);
                             console.log(this.castInfo)
+                        }).catch(err => {
+                            console.log(err)
+                        })
+                    }else{
+                        axios.get(`https://api.themoviedb.org/3/tv/${item.id}/credits?api_key=e99307154c6dfb0b4750f6603256716d`).then(res => {
+                        
+                        this.castInfo = res.data.cast.slice(0, 5);
+                        console.log(this.castInfo)
                     }).catch(err => {
                         console.log(err)
                     })
@@ -64,11 +72,14 @@
                 <div>
                    <i class="fa-solid fa-star" v-for="star in Math.round(item.vote_average / 2)"></i>
                 </div>
-                <ul class="align-self-start p-0 text-start d-flex flex-wrap gap-1">
-                    <!-- creates a tag for each genre associated with the movie||tv item -->
-                    <li v-for="genre_id in item.genre_ids" class="badge text-bg-secondary"><small>{{ findGenre(genre_id, item) }}</small></li>
-                </ul>
-                <button @click="showCast(item)" class="btn btn-sm btn-outline-light" data-bs-toggle="collapse" data-bs-target="#cast-info">cast</button>
+                <div class="row align-items-center w-100 m-3">
+                    <ul class="col-10 p-0 m-0 text-start d-flex flex-wrap gap-1">
+                        <!-- creates a tag for each genre associated with the movie||tv item -->
+                        <li v-for="genre_id in item.genre_ids" class="badge text-bg-secondary"><small>{{ findGenre(genre_id, item) }}</small></li>
+                    </ul>
+                    <button @click="showCast(item)" class="btn btn-sm btn-outline-light col-2" data-bs-toggle="collapse" data-bs-target="#cast-info">Cast</button>
+
+                </div>
                 <div id="cast-info" class="collapse collapse-horizontal">
                     <ul class="list-group list-group-flush text-start">
                         <li class="list-group-item list-group-item-secondary" v-for="actor in castInfo">
@@ -89,79 +100,78 @@
     width: calc(100% / 5 - 0.5rem * 4 / 5);
     min-height: 300px;
     transition: transform 0.3s;
-
+    
+    &:hover{
+        transform: scale(1.5);
+        
+        .card_back{
+            animation: surface 1s ease forwards;
+        }
+    }
     .card_back{
         width: 100%;
         position: fixed;
         bottom: 0;
         left: 0;      
         background-color: rgba($color: #000000, $alpha: 0.8);
-
+        
         // properties that change on hover
         height: 0;
         opacity: 0;
         visibility: hidden;
-
-        #cast-info{
+        
+        .card_info{
+            width: 100%;
+            height: 100%;
             position: absolute;
             top: 0;
-            left: calc(100% - 1px);
-
-            ul{
-                min-width: 150px;
-            }
-        }
-    }
-
-    .card_info{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: center;
-        gap: 2px;
-
-        padding: 1rem;
-        text-align: center;
-    }
+            left: 0;
+            
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            gap: 2px;
     
-    .my_flag{
-        width: 20px;
-        height: 20px;
-        object-fit: contain;
-    }
+            padding: 1rem;
+            text-align: center;
 
-    .overview{
-        text-align: start;
-        font-size: 0.9rem;
-        overflow-y: auto;
+            #cast-info{
+                position: absolute;
+                top: 0;
+                left: calc(100% - 1px);
+    
+                ul{
+                    min-width: 150px;
+                }
+            }
+
+            .my_flag{
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+            }
         
-        /* width */
-        &::-webkit-scrollbar {
-        width: 5px;
-        }
-
-        /* Track */
-        &::-webkit-scrollbar-track {
-        background-color: transparent;
-        }
-
-        /* Handle */
-        &::-webkit-scrollbar-thumb {
-        background-color: #343a40;
-        border-radius: 10px;
-        }
-    }
-
-    &:hover{
-        transform: scale(1.5);
+            .overview{
+                text-align: start;
+                font-size: 0.9rem;
+                overflow-y: auto;
+                
+                /* width */
+                &::-webkit-scrollbar {
+                width: 5px;
+                }
         
-        .card_back{
-            animation: surface 1s ease forwards;
+                /* Track */
+                &::-webkit-scrollbar-track {
+                background-color: transparent;
+                }
+        
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                background-color: #343a40;
+                border-radius: 10px;
+                }
+            }
         }
     }
 
