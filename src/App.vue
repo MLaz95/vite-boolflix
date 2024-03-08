@@ -44,11 +44,23 @@
         console.log(err)
       }),
 
+      axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=e99307154c6dfb0b4750f6603256716d`).then(res => {
+        this.store.movieGenres = res.data.genres
+      }).catch(err => {
+        console.log(err)
+      }),
+
+      axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=e99307154c6dfb0b4750f6603256716d`).then(res => {
+        this.store.tvGenres = res.data.genres
+      }).catch(err => {
+        console.log(err)
+      }),
+
       axios.get(`https://flagcdn.com/en/codes.json`).then(res => {
         this.store.flagIcons = res.data
       }).catch(err => {
         console.log(err)
-      })
+      }),
 
       console.log('store', this.store)
     }

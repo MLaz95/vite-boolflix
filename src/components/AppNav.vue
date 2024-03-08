@@ -28,15 +28,10 @@
 <style lang="scss">
 
 .search_bar:focus-visible{
-        outline: none;
-    }
+    outline: none;
+}
 
 nav{
     background-image: linear-gradient(black, transparent);
 }
-
-
-
-
-
 </style>

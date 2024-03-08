@@ -9,6 +9,10 @@ export const store = reactive({
     tvResults: '',
     // settings from tmdb
     config: '',
+    // list of available movie genres on tmdb
+    movieGenres: '',
+    // list of available tv genres on tmdb
+    tvGenres: '',
     // the base string for every img path from tmdb
     posterBaseUrl: '',
     // two character code to retrieve country flag

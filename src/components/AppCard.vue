@@ -12,6 +12,19 @@
         props:{
             item: Object,
         },
+
+        methods:{
+
+            findGenre(genre_id, item){
+                // uses the title property to check if the item is a movie or tv show
+                // then compares the item genre ids with the appropriate array and returns the actual genre
+                if(item.title){
+                    return store.movieGenres.find(({id}) => id == genre_id).name
+                } else {
+                    return store.tvGenres.find(({id}) => id == genre_id).name
+                }
+            }
+        }
     }
 </script>
 
@@ -32,6 +45,10 @@
                 <div>
                    <i class="fa-solid fa-star" v-for="star in Math.round(item.vote_average / 2)"></i>
                 </div>
+                <ul class="align-self-start p-0 text-start d-flex flex-wrap gap-1">
+                    <!-- creates a tag for each genre associated with the movie||tv item -->
+                    <li v-for="genre_id in item.genre_ids" class="badge text-bg-secondary"><small>{{ findGenre(genre_id, item) }}</small></li>
+                </ul>
                 <p class="overview">{{ item.overview }}</p>
             </div>
         </div>
@@ -39,6 +56,7 @@
 </template>
 
 <style lang="scss">
+
 .my_card{
     width: calc(100% / 5 - 0.5rem * 4 / 5);
     min-height: 300px;
