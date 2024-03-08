@@ -7,7 +7,8 @@
         data(){
             return{
                 store,
-                currentFilter: '',
+                currentMovieFilter: '',
+                currentTvFilter: '',
             }
         },
 
@@ -27,8 +28,13 @@
             },
 
             // sets the current genre filter based on user input
-            setFilter(genre_id){
-                this.currentFilter = genre_id
+            setFilter(genre_id, tag){
+                if(tag == 'movie'){
+                    this.currentMovieFilter = genre_id
+                }else if(tag == 'tv'){
+                    this.currentTvFilter = genre_id
+                }
+                
             }
         }
     }
@@ -36,17 +42,18 @@
 
 <template>
     <div class="my_container">
+        <!-- MOVIES -->
         <!-- only shows if user has made a search -->
         <div v-if="store.movieResults != '' && store.movieResults.results != ''" class="pt-5">
             <h2>Movies</h2>
             <!-- genre filters -->
-            <ul>
-                <li @click="setFilter('')" class="badge text-bg-secondary fs-4">All</li>
+            <ul class="d-flex gap-1">
+                <li @click="setFilter('', 'movie')" class="genre_btn badge text-bg-secondary fs-6">All</li>
                 <!-- it only shows genres that are present among the results -->
                 <li 
                     v-for="genre_id in store.foundMovieGenres"
-                    @click="setFilter(genre_id)"
-                    class="badge text-bg-secondary fs-4"
+                    @click="setFilter(genre_id, 'movie')"
+                    class="genre_btn badge text-bg-secondary fs-6"
                 >{{ findGenre(genre_id, store.movieResults.results[0]) }}</li>
             </ul>
         </div>
@@ -55,15 +62,31 @@
             <!-- v-show hides results depending on genre filter -->
             <AppCard
                 v-for="currentResult in store.movieResults.results"
-                v-show="currentFilter != '' ? currentResult.genre_ids.includes(currentFilter) : true"
+                v-show="currentMovieFilter != '' ? currentResult.genre_ids.includes(currentMovieFilter) : true"
                 :item="currentResult"
             ></AppCard>
         </div>
-        <h2 v-if="store.tvResults.results != '' && store.movieResults != ''" class="pt-5">TV</h2>
+        <!-- END OF MOVIES -->
+
+        <!-- TV -->
+        <div v-if="store.tvResults != '' && store.tvResults.results != ''" class="pt-5">
+            <h2>TV</h2>
+            <!-- genre filters -->
+            <ul>
+                <li @click="setFilter('', 'tv')" class="genre_btn badge text-bg-secondary fs-6">All</li>
+                <!-- it only shows genres that are present among the results -->
+                <li 
+                    v-for="genre_id in store.foundTvGenres"
+                    @click="setFilter(genre_id, 'tv')"
+                    class="genre_btn badge text-bg-secondary fs-6"
+                >{{ findGenre(genre_id, store.tvResults.results[0]) }}</li>
+            </ul>
+        </div>
         <div class="d-flex flex-wrap align-items-stretch gap-2 shadow">
             <AppCard
             v-for="currentResult in store.tvResults.results"
                 :item="currentResult"
+                v-show="currentTvFilter != '' ? currentResult.genre_ids.includes(currentTvFilter) : true"
             ></AppCard>
         </div>
     </div>
@@ -73,6 +96,10 @@
     .my_container{
         width: 80%;
         margin: 0 auto;
+    }
+
+    .genre_btn{
+        cursor: pointer;
     }
 
 

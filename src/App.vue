@@ -29,7 +29,6 @@
           })
         });
         console.log('movies', this.store.movieResults)
-        console.log('store', this.store)
       }).catch(err => {
         console.log(err)
       })
@@ -37,11 +36,18 @@
 
       findTV(){
         axios.get(`https://api.themoviedb.org/3/search/tv?api_key=f5a4e0949a1a20f210ccb9ccfc9ae37a&query=${store.search}&language=it-IT`).then(res => {
-        this.store.tvResults = res.data
-        console.log('tv', this.store.tvResults)
-      }).catch(err => {
-        console.log(err)
-      })
+          this.store.tvResults = res.data
+          this.store.tvResults.results.forEach(currentTv => {
+            currentTv.genre_ids.forEach(id => {
+              if(!this.store.foundTvGenres.includes(id)){
+                this.store.foundTvGenres.push(id)
+              }
+            })
+          });
+          console.log('tv', this.store.tvResults)
+        }).catch(err => {
+          console.log(err)
+        })
       }
     },
 
