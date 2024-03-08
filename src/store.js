@@ -5,6 +5,8 @@ export const store = reactive({
     search: '',
     // array of movie objects from api
     movieResults: '',
+    // array of genre ids present within results
+    foundMovieGenres: [],
     // array of tv objects from api
     tvResults: '',
     // settings from tmdb

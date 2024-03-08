@@ -20,7 +20,16 @@
       findMovie(){
         axios.get(`https://api.themoviedb.org/3/search/movie?api_key=f5a4e0949a1a20f210ccb9ccfc9ae37a&query=${store.search}&language=it-IT`).then(res => {
         this.store.movieResults = res.data
+        this.store.movieResults.results.forEach(currentMovie => {
+          currentMovie.genre_ids.forEach(id => {
+            if(!this.store.foundMovieGenres.includes(id)){
+              this.store.foundMovieGenres.push(id)
+            }
+
+          })
+        });
         console.log('movies', this.store.movieResults)
+        console.log('store', this.store)
       }).catch(err => {
         console.log(err)
       })
